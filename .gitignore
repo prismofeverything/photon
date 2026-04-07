@@ -1,0 +1,26 @@
+# Clojure
+.cpcache/
+.nrepl-port
+*.class
+
+# ClojureScript / shadow-cljs
+.shadow-cljs/
+resources/public/js/compiled/
+
+# Node
+node_modules/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.calva/
+.lsp/
+.clj-kondo/.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude
+.claude/

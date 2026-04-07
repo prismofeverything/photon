@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photon — Network Simulation</title>
+  <style>
+    :root {
+      --bg:       #0a0e17;
+      --surface:  #111827;
+      --border:   #1e293b;
+      --text:     #e2e8f0;
+      --dim:      #64748b;
+      --accent:   #00ffaa;
+      --accent2:  #0ea5e9;
+      --danger:   #ef4444;
+      --mono:     'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--mono);
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    #root { height: 100vh; }
+
+    .app {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 300px;
+      min-width: 300px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .viewport {
+      flex: 1;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: var(--accent);
+    }
+
+    h3 {
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .status.on  { color: var(--accent); border: 1px solid var(--accent); }
+    .status.off { color: var(--danger); border: 1px solid var(--danger); }
+
+    .control {
+      margin-bottom: 12px;
+    }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--dim);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .control .value {
+      color: var(--accent);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 11px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.15s;
+    }
+
+    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .btn.generate { border-color: var(--accent2); color: var(--accent2); }
+    .btn.generate:hover { background: var(--accent2); color: var(--bg); }
+
+    .btn.start { border-color: var(--accent); color: var(--accent); }
+    .btn.start:hover { background: var(--accent); color: var(--bg); }
+
+    .btn.stop { border-color: var(--danger); color: var(--danger); }
+    .btn.stop:hover { background: var(--danger); color: white; }
+
+    .info {
+      font-size: 11px;
+      color: var(--dim);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .info .value {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .node-table {
+      margin-top: 8px;
+    }
+
+    .table-scroll {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+    }
+
+    th {
+      text-align: left;
+      color: var(--dim);
+      padding: 4px 6px;
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+    }
+
+    td {
+      padding: 3px 6px;
+      border-bottom: 1px solid var(--border);
+      color: var(--dim);
+    }
+
+    tr.active td {
+      color: var(--accent);
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="/js/compiled/main.js"></script>
+</body>
+</html>
